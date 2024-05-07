@@ -1,32 +1,41 @@
-# Define a dictionary of common problems and their solutions 
-problem_dict = { 
- "What if my flight is delayed?":"You may be eligible for compensation or assistance depending on the duration and reason for the delay.",
- "Can I get a refund for a canceled flight?":"Yes, you're entitled to a refund if the airline cancels your flight, although some airlines may offer alternative options.",
- "How do I rebook if I miss my connecting flight?":"Approach airline staff for assistance; they'll help you find an alternative flight.",
-"Do I need to notify the airline about my medical condition before flying?":"It's advisable to inform the airline in advance to arrange any necessary accommodations or assistance.",
-"What if my luggage is lost?":"Report it to the airline's baggage services, and they'll help track and deliver your luggage.",
-"Can I get compensation for a flight delay?":"Depending on the circumstances, you may be entitled to compensation under passenger rights regulations.",
-"What are my rights during a flight delay?":"You have rights outlined by aviation authorities, which typically include entitlements to compensation and assistance.",
- "How can I stay informed about changes to my flight?":"Download the airline's app or check their website for updates, or sign up for email or SMS notifications.",
- "Can I choose my seat?":"Yes, you can often choose your seat during the booking process or at check-in, subject to availability.",
-"What if I need special assistance?":"Notify the airline in advance or inform staff at the airport, and they'll assist you accordingly."
+rules = {
+    "rule1": "If the employee meets all project deadlines, add 20 points to their score.",
+    "rule2": "If the employee consistently exceeds expectations, add 30 points to their score.",
+    "rule3": "If the employee shows initiative and takes on additional responsibilities, add 15 points to their score.",
+    "rule4": "If the employee is frequently absent or misses deadlines, subtract 25 points from their score.",
+    "rule5": "If the employee consistently performs below expectations, subtract 35 points from their score."
 }
-# Define a function to handle user requests 
-def handle_request(user_input): 
-    if user_input.lower() == "exit": 
-        print("Goodbye!")
-        quit() 
-    for problem, solution in problem_dict.items():
-        if user_input.lower() == problem.lower():
-            return solution
-    return "I'm sorry, I don't know how to help with that problem."
 
-# Main loop to prompt user for input 
-while True: 
-    print("What's the problem? Type 'exit' to quit. ")
-    user_input = input() 
-    response = handle_request(user_input) 
-    print(response)
+def evaluate_employee_performance(deadlines_met, expectations_exceeded, initiative_taken, absences, performance_below_expectations):
+    score = 0
+    if deadlines_met:
+        score += 20
+    if expectations_exceeded:
+        score += 30
+    if initiative_taken:
+        score += 15
+    if absences:
+        score -= 25
+    if performance_below_expectations:
+        score -= 35
+    return score
 
-
-
+employee_data={}
+n=int(input("Enter the number of data of employee you want to insert: "))
+for i in range(0,n):
+    name=input("Enter the name of the employee: ")
+    data={
+          "deadlines_met":bool(int(input("Enter the performance of deadlines met in terms of 0 or 1: "))),
+          "expectations_exceeded": bool(int(input("Enter the performance of expectations exceeded in terms of 0 or 1: "))),
+          "initiative_taken": bool(int(input("Enter the performance of initiative taken in terms of 0 or 1: "))),
+          "absences": bool(int(input("Enter the performance of absences in terms of 0 or 1: "))),
+          "performance_below_expectations":bool(int(input("Enter the performance of performance below expectations in terms  0 or 1: ")))
+          }
+    employee_data[name]=data
+print("Rules for employee evaluation")
+for rule in rules.values():
+        print(f"- {rule}")
+for name, data in employee_data.items():
+    score = evaluate_employee_performance(data["deadlines_met"], data["expectations_exceeded"], data["initiative_taken"], data["absences"], data["performance_below_expectations"])
+    print(f"Employee {name} scored {score} points")
+   
