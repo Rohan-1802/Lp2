@@ -1,62 +1,40 @@
+import random
 
-def greet(bot_name, birth_year):
-    print("Hello! My name is {0}.".format(bot_name)) 
-    print("I was created in {0}.".format(birth_year))
-def remind_name():
-    print('Please, remind me your name.')
-    name = input()
-    print("What a great name you have, {0}!".format(name))
-def guess_age():
-    print('Let me guess your age.')
-    print('Enter remainders of dividing your age by 3, 5 and 7.') 
-    rem3 = int(input())
-    rem5 = int(input()) 
-    rem7 = int(input())
-    age = (rem3 * 70 + rem5 * 21 + rem7 * 15) % 105 
-    if age >= 18 :
-        print("Your age is {0}; eligible for voting".format(age))
+responses = {
+    "hi": "Hello, welcome to Enterprise Bot! How can I assist you today?",
+    "services": "We offer the following services:\n- IT Support\n- Software Development\n- Cloud Computing\n- Data Analytics\nWhich service are you interested in?",
+    "it support": "Great, let me transfer you to our IT support team.",
+    "software development": "Great, let me transfer you to our software development team.",
+    "cloud computing": "Great, let me transfer you to our cloud computing team.",
+    "data analytics": "Great, let me transfer you to our data analytics team.",
+    "default": "I'm sorry, I didn't understand. Can you please rephrase?"
+}
+
+def get_response(user_input):
+    user_input = user_input.lower()
+    
+    if "it support" in user_input:
+        return responses["it support"]
+    elif "software development" in user_input:
+        return responses["software development"]
+    elif "cloud computing" in user_input:
+        return responses["cloud computing"]
+    elif "data analytics" in user_input:
+        return responses["data analytics"]
+    elif "services" in user_input:
+        return responses["services"]
+    elif "hi" in user_input:
+        return responses["hi"]
+    elif "bye" in user_input:
+        return "Thank you for contacting Enterprise Bot. Have a nice day!"
     else:
-        print("Your age is {0}; is not eligible for voting".format(age))
-    return
-def test():
-    print("Let's test your democratic knowledge.")
-    print("Among the below-given countries, which country has the highest support for democracy?")
-    print("1. India")
-    print("2. Nepal") 
-    print("3. Bangladesh") 
-    print("4. Pakistan") 
-    answer = 1
-    guess = int(input())
-    if guess==1:
-        print("Your answer is right , India has the higgest support for democracy \n")
-    while guess != answer:
-        print("Please, try again.")
-        guess = int(input()) 
-    if guess==1:
-        print("Your answer is right , India has the higgest support for democracy \n")    
-    print("Who is President of India") 
-    print("1.Pranav Mukharji") 
-    print("2.Droupadi Murmu") 
-    print("3.Ramnath Kovind") 
-    print("4.Venkeya Naidu")
-    answer2 = 2
-    guess2 = int(input())
-    if guess2==2:
-        print("Your answer is right ,Droupadi Murmu is the president of India")
-    while guess2!= answer2:
-        print("Please, try again.")
-        guess2 = int(input())
-    if guess2==2:
-        print("Your answer is right ,Droupadi Murmu is the president of India\n")
-    print('Completed, have a nice day!\n') 
-    # print('.	')
-    
-def end():
-    print('Congratulations, have a nice day!') 
-    print('  	')
-    
-greet('TE-Chatbot', '2024') # change it as you need 
-remind_name()
-guess_age() 
-test()
-end()
+        return responses["default"]
+
+print("Hello, welcome to Enterprise Bot! How can I assist you today?")
+while True:
+    user_input = input("You: ")
+    if "bye" in user_input:
+        print(get_response(user_input))
+        break
+    else:
+        print(get_response(user_input))
